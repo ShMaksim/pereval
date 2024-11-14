@@ -172,8 +172,8 @@ class PerevalDatabase:
                     return None
 
 
-                user = self.get_user_by_id(row[6])
-                coords = self.get_coords_by_id(row[7])
+                user = self.get_user_by_id(row['user_id'])
+                coords = self.get_coords_by_id(row['coord_id'])
                 images = self.get_images_by_pereval_id(pereval_id)
 
                 pereval_data = {
@@ -244,8 +244,8 @@ class PerevalDatabase:
 
                     pereval_list.append(
                         Pereval(id=row[0], date_added=row[1], beauty_title=row[2], title=row[3], other_titles=row[4], connect=row[5], add_time=row[6],
-                                user = self.get_user_by_id(row[15]),
-                                coords = self.get_coords_by_id(row[7]),
+                                user = self.get_user_by_id(row['user_id']),
+                                coords = self.get_coords_by_id(row['coord_id']),
                                 winter=row[8], summer=row[9], autumn=row[10], spring=row[11], status=row[12], images=self.get_images_by_pereval_id(row[0]))
                     )
                 return pereval_list

@@ -20,18 +20,18 @@ class PerevalAPI:
 
     @router.post("/submitData")
     async def submit_data(self, request: Request):
-        try:
-            data = await request.json()
-            db = PerevalDatabase()
-            result = db.submit_data(data)
+        with PerevalDatabase() as db:
+            try:
+                data = await request.json()
+                result = db.submit_data(data)
 
-            if result['status'] == 200:
-                return result
-            else:
-                raise HTTPException(status_code=result['status'], detail=result['message'])
+                if result['status'] == 200:
+                    return result
+                else:
+                    raise HTTPException(status_code=result['status'], detail=result['message'])
 
-        except json.JSONDecodeError:
-            raise HTTPException(status_code=400, detail="Некорректный JSON")
+            except json.JSONDecodeError:
+                raise HTTPException(status_code=400, detail="Некорректный JSON")
 
 
     @router.get("/submitData/{pereval_id}")
